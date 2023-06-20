@@ -61,7 +61,7 @@ class FollowMemoListResource(Resource):
 
 class MemoResource(Resource):
 
-    @jwt_required
+    @jwt_required()
     def put(self, memo_id):
     
         data = request.get_json()
@@ -94,7 +94,7 @@ class MemoResource(Resource):
         return {'result':'success'}
     
     
-    @jwt_required
+    @jwt_required()
     def delete(self, memo_id):
 
         user_id = get_jwt_identity()
@@ -125,7 +125,7 @@ class MemoResource(Resource):
 
 class MemoListResource(Resource):
 
-    @jwt_required
+    @jwt_required()
     def post(self):
 
         data = request.get_json()
@@ -144,7 +144,7 @@ class MemoListResource(Resource):
             
             cursor = connection.cursor()
             cursor.execute(query, record)
-            connection.commit
+            connection.commit()
 
             cursor.close()
             connection.close()
@@ -155,7 +155,7 @@ class MemoListResource(Resource):
 
         return {'result':'success'}        
 
-    @jwt_required
+    @jwt_required()
     def get(self):
 
         user_id = get_jwt_identity()
@@ -182,7 +182,7 @@ class MemoListResource(Resource):
 
         i = 0
         for row in result_list :
-            result_list[i]['createdAt'] = row['createdAt'].isoformat()  
+            result_list[i]['createAt'] = row['createAt'].isoformat()  
             result_list[i]['updatedAt'] = row['updatedAt'].isoformat()    
             result_list[i]['date'] = row['date'].isoformat()
             i = i + 1
